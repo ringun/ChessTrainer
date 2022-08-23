@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>chess</title>
+</head>
+<style>
+	body {
+		padding: 0px;
+	}
+
+	.row {
+		display: flex;
+	}
+
+	.field {
+		width: 70px;
+		height: 70px;
+	}
+
+	.row:nth-child(even) .field:nth-child(even) {
+		background-color: #ffb836;
+	}
+
+	.row:nth-child(odd) .field:nth-child(even) {
+		background-color: #813c06;
+	}
+
+	.row:nth-child(even) .field:nth-child(odd) {
+		background-color: #813c06; 
+	}
+
+	.row:nth-child(odd) .field:nth-child(odd) {
+		background-color: #ffb836;
+	}
+
+	.content {
+		display: flex;
+	}
+
+	#field-name {
+		font-size: 100px;
+	}
+
+	.info-content {
+		position: relative;
+		display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    width: 100%;
+	}
+
+	.chess-position-btn {
+		position: absolute;
+		top: 0;
+	}
+
+	.yes {
+		background: #3dd533!important;
+	}
+
+	.no {
+		background: #f32727!important;
+	}
+</style>
+<body>
+	<div class="content">
+		<div>
+			<div class="row">
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+			</div>
+			<div class="row">
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+			</div>
+			<div class="row">
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+			</div>
+			<div class="row">
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+			</div>
+			<div class="row">
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+			</div>
+			<div class="row">
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+			</div>
+			<div class="row">
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+			</div>
+			<div class="row">
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+				<div class="field"></div>
+			</div>
+		</div>
+		<div class="info-content">
+			<button class="chess-position-btn" onclick="nextPosition()">START</button>
+			<p id="field-name"></p>
+		</div>
+	</div>
+
+	<script>
+		let vertical = [8,7,6,5,4,3,2,1];
+		let horizontal = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+		let fields = {};
+
+		var items = document.getElementsByClassName('field');
+		const findPosition = document.getElementById("field-name");
+
+		for (var i = 0; i < items.length; i++) {
+
+
+	    	const verticalIndex = Math.floor(i / 8);
+	    	const horizontalIndex = i % 8;
+	    	const currentPosition = horizontal[horizontalIndex] + vertical[verticalIndex];
+
+			fields[currentPosition] = items[i];
+
+		    items[i].addEventListener('click', function (e) {
+
+		    	if (currentPosition === findPosition.innerText) {
+		    		e.target.classList.add('yes');
+		    	} else {
+		    		e.target.classList.add('no');
+		    		fields[findPosition.innerText].classList.add('yes');
+		    	}
+
+		    	setTimeout(() => {
+		    		nextPosition();
+		    	}, 500);
+		    });
+		}
+
+		const checkField = () => {
+
+		}
+
+		let randPosition = () => {
+			return Math.floor(Math.random() * 8);
+		}
+
+		let clearResults = () => {
+			for (var i = 0; i < items.length; i++) {
+				items[i].classList.remove('yes');
+				items[i].classList.remove('no');
+			}
+		}
+
+		let nextPosition = () => {
+			const position = horizontal[randPosition()] + '' + vertical[randPosition()];
+			findPosition.innerText = position;
+			clearResults();
+		}
+	</script>
+</body>
+</html>
